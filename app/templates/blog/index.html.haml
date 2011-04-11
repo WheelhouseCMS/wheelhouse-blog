@@ -1,0 +1,10 @@
+- template.name = "Default Blog"
+- template.resource = Blog::Blog
+- title @blog.title
+
+%h3= @blog.title
+
+- @blog.posts.each do |post|
+  .post
+    %h4= post.title
+    = post.content

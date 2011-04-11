@@ -1,0 +1,11 @@
+- title @blog.title
+- breadcrumb params[:category]
+
+%h3= @blog.title
+
+%p Posts in category: #{params[:category]}
+
+- @blog.posts.each do |post|
+  .post
+    %h4= post.title
+    = post.content

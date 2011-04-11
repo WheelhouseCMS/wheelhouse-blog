@@ -1,0 +1,21 @@
+en:
+  resource:
+    models:
+      blog:
+        post: Blog Post
+        
+  helpers:
+    label:
+      blog:
+        title: Blog Title
+      
+      post:
+        title: Post Title
+        content: Post Content
+        tags_string: Tags
+        published_at: Publish Date
+  
+  tabs:
+    blog:
+      blog:
+        blog_settings: Blog Settings

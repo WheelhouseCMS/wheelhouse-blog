@@ -1,0 +1,22 @@
+- tab :posts => 'posts' if @blog.persisted?
+
+- tab :blog_settings do
+  = field :title do
+    = form.text_field :title, :title => true
+
+  = content
+
+- sidebar do
+  .buttons
+    = button icon('publish.png') + " Save Settings", :class => 'primary', :type => 'submit', :id => 'save-and-publish'
+  
+  %hr
+  
+  %dl
+    = navigation_options
+    = template_options
+  
+  - if @blog.persisted?
+    %hr
+    = owner
+      

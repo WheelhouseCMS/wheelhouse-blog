@@ -1,0 +1,55 @@
+- form! [@blog, @post], :as => :post, :url => @post.admin_path
+
+- tab :post do
+  = field :title do
+    = form.text_field :title
+    
+  = content
+  
+- sidebar do
+  .buttons
+    = button(:save_and_publish)
+
+    .row
+      = button(:save_draft)
+      = button(:preview)
+
+  %hr
+
+  %dl
+    = sidebar_expander "Publishing Options" do
+      = field :published_at do
+        .datetime
+          = form.datetime_select :published_at
+      
+      = field :permalink do
+        = form.text_field :permalink
+    
+    = sidebar_expander "Tags & Categories" do
+      = field :categories do
+        %ul#blog-categories
+          - @blog.categories.each do |category|
+            %li
+              %label
+                = check_box_tag "post[categories][]", category, @post.categories.include?(category), :id => nil
+                = category
+
+      = field :tags_string do
+        = form.text_field :tags_string
+        = note "Separate tags with commas."
+
+  %hr
+  
+  - if resource.persisted?
+    = owner
+    = versions
+    %hr
+
+= plugin_stylesheet :blog, "blog-admin"
+= plugin_javascript :blog, "blog-admin.js"
+
+:javascript
+  $(function() {
+    Blog.autofill();
+    Blog.setupCategories();
+  });

@@ -1,0 +1,26 @@
+@charset "UTF-8";
+#blog-posts {
+  color: #636154; }
+  #blog-posts a {
+    color: #47463c; }
+  #blog-posts tbody tr:nth-child(even) td {
+    background-color: #fefdfb; }
+  #blog-posts tbody tr.even td {
+    background-color: #fefdfb; }
+  #blog-posts tbody tr[data-url]:hover td {
+    background-color: #fbfaf4; }
+  #blog-posts tbody tr td {
+    border-color: #e1ddc8; }
+  #blog-posts thead th {
+    background-color: #faf8f0;
+    border-color: #e1ddc8; }
+
+#blog-categories {
+  overflow: hidden;
+  *zoom: 1; }
+  #blog-categories label {
+    font-weight: normal;
+    color: #638091; }
+  #blog-categories li {
+    margin-top: 0;
+    margin-bottom: 3px; }

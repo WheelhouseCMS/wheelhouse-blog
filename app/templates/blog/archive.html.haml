@@ -1,0 +1,11 @@
+- title "Archive - #{Date::MONTHNAMES[@month]} #{@year} - #{@blog.title}"
+- breadcrumb "#{Date::MONTHNAMES[@month]} #{@year}"
+
+%h3= @blog.title
+
+%p Posts from: #{Date::MONTHNAMES[@month]} #{@year}
+
+- @blog.posts.each do |post|
+  .post
+    %h4= post.title
+    = post.content

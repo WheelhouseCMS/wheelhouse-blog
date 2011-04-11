@@ -1,0 +1,12 @@
+- template.name = "Blog Post"
+- template.resource = Blog::Post
+- breadcrumb @post.title
+- title @post.title
+
+%h3= @post.title
+%p
+  %strong
+    Posted:
+    = @post.published_at.to_s(:short)
+  
+= @post.content
