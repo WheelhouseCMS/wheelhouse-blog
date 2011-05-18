@@ -3,14 +3,19 @@
 
 - @posts = @blog.all_posts.properties_for_admin.paginate(:page => params[:p])
 
-= table_for @posts, :id => "blog-posts" do |t, post|
-  - t.resource post
-
-  - t.column(:title)
-  - t.column(:author) { post.author ? post.author.name : 'None' }
-  - t.column(:published_at) { post.published? ? post.published_at.to_s(:short) : 'Draft' }
-
-  - t.controls { |c| c.delete }
+= table_for Blog::Post, :id => "blog-posts" do |table|
+  - table.rows(@posts) do |row, post|
+    - row.resource = post
+    
+    = row.column(:title, :link => true)
+    = row.column(:author) { post.author ? post.author.name : 'None' }
+    = row.column(:published_at) { post.published? ? post.published_at.to_s(:short) : 'Draft' }
+    = row.controls do |c|
+      = c.delete
+  
+  - table.empty do
+    No blog posts have been created.
+    = link_to "Create a new post.", new_blog_blog_post_path(@blog)
 
 = will_paginate @posts
 
