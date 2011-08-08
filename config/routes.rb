@@ -1,7 +1,7 @@
-Blog::Plugin::Routes.draw do
-  namespace :admin, :module => :blog, :as => :blog do
-    resources :blogs do
-      resources :posts
-    end
+Blog::Plugin.routes.draw do
+  extend Wheelhouse::RouteExtensions
+  
+  resources :blogs do
+    resources :posts
   end
 end

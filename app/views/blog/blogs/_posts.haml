@@ -1,5 +1,8 @@
+- content_for(:head) do
+  = stylesheet_link_tag "blog/admin"
+
 .buttons
-  = link_to "New Post", new_blog_blog_post_path(@blog), :class => 'add'
+  = link_to "New Post", new_blog_post_path(@blog), :class => 'add'
 
 - @posts = @blog.all_posts.properties_for_admin.paginate(:page => params[:p])
 
@@ -15,8 +18,6 @@
   
   - table.empty do
     No blog posts have been created.
-    = link_to "Create a new post.", new_blog_blog_post_path(@blog)
+    = link_to "Create a new post.", new_blog_post_path(@blog)
 
 = will_paginate @posts
-
-= plugin_stylesheet :blog, "blog-admin"

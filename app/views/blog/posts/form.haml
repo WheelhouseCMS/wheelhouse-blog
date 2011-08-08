@@ -1,3 +1,15 @@
+- content_for(:head) do
+  = stylesheet_link_tag "blog/admin"
+  
+- content_for(:javascript) do
+  = javascript_include_tag "blog/admin.js"
+  
+  :javascript
+    $(function() {
+      Blog.autofill();
+      Blog.setupCategories();
+    });
+
 - form! [@blog, @post], :as => :post, :url => @post.admin_path
 
 - tab :post do
@@ -44,12 +56,3 @@
     = owner
     = versions
     %hr
-
-= plugin_stylesheet :blog, "blog-admin"
-= plugin_javascript :blog, "blog-admin.js"
-
-:javascript
-  $(function() {
-    Blog.autofill();
-    Blog.setupCategories();
-  });

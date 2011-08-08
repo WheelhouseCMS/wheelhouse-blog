@@ -19,7 +19,7 @@ class Blog::Post < Wheelhouse::Resource
   
   activities :all, :resource_name => :title
   
-  icon :blog, "images/post.png"
+  icon "blog/post.png"
   
   validates_uniqueness_of :permalink, :scope => :blog_id
   
@@ -56,11 +56,7 @@ class Blog::Post < Wheelhouse::Resource
   end
 
   def admin_path
-    if persisted?
-      blog_blog_post_path(blog_id, self)
-    else
-      blog_blog_posts_path(blog_id)
-    end
+    persisted? ? blog_post_path(blog_id, self) : blog_posts_path(blog_id)
   end
   
   def handler

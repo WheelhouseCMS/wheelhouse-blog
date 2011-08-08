@@ -9,12 +9,16 @@ class Blog::Blog < Wheelhouse::Resource
 
   activities :all
   
-  icon :blog, "images/blog.png"
+  icon "blog/blog.png"
   
   self.default_template = "blog/index"
   
   def handler
     Blog::BlogHandler
+  end
+  
+  def new_post_admin_path
+    new_blog_post_path(self)
   end
   
   def find_post(year, month, permalink)
@@ -35,7 +39,7 @@ class Blog::Blog < Wheelhouse::Resource
   
   def archives
     selector = MongoModel::MongoOptions.new(posts.klass, posts.finder_options).to_a.first
-    posts.collection.group([:year, :month], selector, { :count => 0 }, "function(doc, out) { out.count++ }").map { |hash|
+    posts.collection.group(:key => [:year, :month], :cond => selector, :initial => { :count => 0 }, :reduce => "function(doc, out) { out.count++ }").map { |hash|
       year, month, count = hash["year"], hash["month"], hash["count"]
       
       [Date.civil(year, month, 1), archive_path(year, month), count.to_i]
