@@ -11,5 +11,9 @@ module Blog
     end
     
     resource { Blog }
+    
+    initializer "precompile assets" do |app|
+      app.config.assets.precompile << "blog/admin.*"
+    end
   end
 end
