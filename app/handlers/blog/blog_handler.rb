@@ -26,7 +26,7 @@ class Blog::BlogHandler < Wheelhouse::ResourceHandler
   get "/:year/:month", :cache => true do
     @year  = params[:year].to_i
     @month = params[:month].to_i
-    raise ActionController::RoutingError, "No route matches #{request.original_path.inspect}" if @year.zero? || @month.zero?
+    raise ActionController::RoutingError, "No route matches #{request.path.inspect}" if @year.zero? || @month.zero?
     
     @posts = @blog.posts.in_year_and_month(@year, @month)
     render :template => "archive.html"
