@@ -1,8 +1,7 @@
 en:
   resource:
     models:
-      blog:
-        post: Blog Post
+      blog/post: Blog Post
         
   helpers:
     label:
