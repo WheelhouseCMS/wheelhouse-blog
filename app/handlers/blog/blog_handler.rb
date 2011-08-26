@@ -1,6 +1,4 @@
 class Blog::BlogHandler < Wheelhouse::ResourceHandler
-  helper Blog::BlogHelper
-  
   get :cache => true do
     # Nothing extra required
   end
