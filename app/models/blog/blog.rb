@@ -9,7 +9,7 @@ class Blog::Blog < Wheelhouse::Resource
 
   activities :all
   
-  icon "blog/blog.png"
+  icon "wheelhouse-blog/blog.png"
   
   self.default_template = "blog/index"
   

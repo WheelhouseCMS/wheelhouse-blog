@@ -19,7 +19,7 @@ class Blog::Post < Wheelhouse::Resource
   
   activities :all, :resource_name => :title
   
-  icon "blog/post.png"
+  icon "wheelhouse-blog/post.png"
   
   validates_uniqueness_of :permalink, :scope => :blog_id
   
