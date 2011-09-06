@@ -5,12 +5,12 @@ module Blog
     isolate_namespace Blog
     
     resources do
-      Blog.select(:id, :label).map do |blog|
+      ::Blog::Blog.select(:id, :label).map do |blog|
         [ Post, blog.label, lambda { blog.new_post_admin_path } ]
       end
     end
     
-    resource { Blog }
+    resource { ::Blog::Blog }
     
     initializer "precompile assets" do |app|
       app.config.assets.precompile << "blog/admin.*"
