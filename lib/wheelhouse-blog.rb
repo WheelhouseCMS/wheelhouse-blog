@@ -13,7 +13,7 @@ module Blog
     resource { ::Blog::Blog }
     
     initializer "precompile assets" do |app|
-      app.config.assets.precompile << "blog/admin.*"
+      app.config.assets.precompile << "wheelhouse-blog/admin.*"
     end
   end
 end
