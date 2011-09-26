@@ -31,8 +31,7 @@
   %dl
     = sidebar_expander "Publishing Options" do
       = field :published_at do
-        .datetime
-          = form.datetime_select :published_at
+        = form.datetime :published_at
       
       = field :permalink do
         = form.text_field :permalink
