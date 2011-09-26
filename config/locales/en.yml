@@ -15,6 +15,5 @@ en:
         published_at: Publish Date
   
   tabs:
-    blog:
-      blog:
-        blog_settings: Blog Settings
+    blog/blog:
+      blog_settings: Blog Settings
