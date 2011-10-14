@@ -1,57 +1,25 @@
 - content_for(:head) do
   = stylesheet_link_tag "wheelhouse-blog/admin"
-  
-- content_for(:javascript) do
-  = javascript_include_tag "wheelhouse-blog/admin"
-  
-  :javascript
-    $(function() {
-      Blog.autofill();
-      Blog.setupCategories();
-    });
 
 - form! [@blog, @post], :as => :post, :url => @post.admin_path
 
 - tab :post do
   = field :title do
-    = form.text_field :title
+    = form.text_field :title, :title => true
     
   = content
   
-- sidebar do
-  .buttons
-    = button(:save_and_publish)
-
-    .row
-      = button(:save_draft)
-      = button(:preview)
-
-  %hr
-
-  %dl
-    = sidebar_expander "Publishing Options" do
-      = field :published_at do
-        = form.datetime :published_at
-      
-      = field :permalink do
-        = form.text_field :permalink
+- sidebar(:options) do
+  = sidebar_expander "Publishing Options" do
+    = field :published_at do
+      = form.datetime :published_at
     
-    = sidebar_expander "Tags & Categories" do
-      = field :categories do
-        %ul#blog-categories
-          - @blog.categories.each do |category|
-            %li
-              %label
-                = check_box_tag "post[categories][]", category, @post.categories.include?(category), :id => nil
-                = category
-
-      = field :tags_string do
-        = form.text_field :tags_string
-        = note "Separate tags with commas."
-
-  %hr
+    = field :permalink do
+      = form.permalink :permalink
   
-  - if resource.persisted?
-    = owner
-    = versions
-    %hr
+  = sidebar_expander "Tags & Categories" do
+    = field :categories do
+      = form.checkboxes :categories, @blog.categories, :editable => true, :placeholder => "Add a category..."
+
+    = field :tags do
+      = form.tags :tags, @blog.tags, :placeholder => "Add a tag..."

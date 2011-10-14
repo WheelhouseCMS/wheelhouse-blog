@@ -4,9 +4,4 @@ class Blog::PostsController < Wheelhouse::ResourceController
 
   manage_site_breadcrumb
   breadcrumb { [parent.label, blog_path(parent)] }
-  
-protected
-  def update_resource(object, attributes)
-    super(object, attributes.reverse_merge(:categories => []))
-  end
 end
