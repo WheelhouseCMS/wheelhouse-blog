@@ -6,11 +6,11 @@ module Blog
     
     resources do
       ::Blog::Blog.select(:id, :label).map do |blog|
-        [ Post, blog.label, lambda { blog.new_post_admin_path } ]
+        Resource(::Blog::Post, :sublabel => blog.label, :url => blog.new_post_admin_path)
       end
     end
     
-    resource { ::Blog::Blog }
+    resource { Resource(::Blog::Blog) }
     
     initializer "precompile assets" do |app|
       app.config.assets.precompile << "wheelhouse-blog/admin.*"
