@@ -2,8 +2,8 @@ Gem::Specification.new do |s|
   s.name        = "wheelhouse-blog"
   s.platform    = Gem::Platform::RUBY
   s.version     = "1.0"
-  s.summary     = "Wheelhouse Blog Plugin"
-  s.description = "Blog plugin for Wheelhouse CMS."
+  s.summary     = "Wheelhouse CMS Blog Plugin"
+  s.description = "Integrates blogs into your Wheelhouse CMS site."
 
   s.required_ruby_version     = ">= 1.8.7"
   s.required_rubygems_version = ">= 1.3.6"
