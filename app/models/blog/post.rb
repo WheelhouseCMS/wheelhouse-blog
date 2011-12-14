@@ -54,6 +54,10 @@ class Blog::Post < Wheelhouse::Resource
   def author
     created_by
   end
+  
+  def published_at
+    read_attribute(:published_at) || Time.now
+  end
 
   def admin_path
     persisted? ? blog_post_path(blog_id, self) : blog_posts_path(blog_id)
@@ -67,7 +71,7 @@ private
   def set_published_timestamp
     if published?
       self.published_at ||= Time.now
-      self.year = published_at.year
+      self.year  = published_at.year
       self.month = published_at.month
     end
   end

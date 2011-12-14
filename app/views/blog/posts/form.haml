@@ -12,7 +12,7 @@
 - sidebar(:options) do
   = sidebar_expander "Publishing Options" do
     = field :published_at do
-      = form.datetime :published_at
+      = form.datetime :published_at, :value => @post.read_attribute(:published_at) || ""
     
     = field :permalink do
       = form.permalink :permalink
