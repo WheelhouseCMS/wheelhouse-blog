@@ -31,9 +31,10 @@ class Blog::Post < Wheelhouse::Resource
   scope :in_category, lambda { |category| where(:_categories => category) }
   scope :in_year_and_month, lambda { |year, month| where(:year => year, :month => month) }
   
-  scope :properties_for_admin, select(:id, :type, :title, :state, :published_at, :created_by_id, :blog_id)
+  scope :properties_for_admin, select(:id, :type, :title, :state, :published_at, :created_by_id, :author_name, :blog_id)
   
   before_save :set_published_timestamp, :if => :published?
+  before_save :cache_author_name
   
   delegate :site, :to => :blog
   after_save :clear_cache!
@@ -48,6 +49,10 @@ class Blog::Post < Wheelhouse::Resource
   
   def path
     blog.path(published_at.year, published_at.month, permalink)
+  end
+  
+  def author_name
+    read_attribute(:author_name) || (author && author.name)
   end
   
   def author
@@ -71,5 +76,9 @@ private
     self.published_at = published_at
     self.year         = published_at.year
     self.month        = published_at.month
+  end
+  
+  def cache_author_name
+    write_attribute(:author_name, author.name) if author
   end
 end

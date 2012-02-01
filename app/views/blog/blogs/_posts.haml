@@ -11,7 +11,7 @@
     - row.resource = post
     
     = row.column(:title, :link => true)
-    = row.column(:author) { post.author ? post.author.name : 'None' }
+    = row.column(:author) { post.author_name || 'None' }
     = row.column(:published_at) { post.published? ? post.published_at.to_s(:short) : 'Draft' }
     = row.controls do |c|
       = c.delete
