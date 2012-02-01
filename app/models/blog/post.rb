@@ -33,7 +33,7 @@ class Blog::Post < Wheelhouse::Resource
   
   scope :properties_for_admin, select(:id, :type, :title, :state, :published_at, :created_by_id, :blog_id)
   
-  before_save :set_published_timestamp
+  before_save :set_published_timestamp, :if => :published?
   
   delegate :site, :to => :blog
   after_save :clear_cache!
@@ -70,10 +70,8 @@ class Blog::Post < Wheelhouse::Resource
 
 private
   def set_published_timestamp
-    if published?
-      self.published_at ||= Time.now
-      self.year  = published_at.year
-      self.month = published_at.month
-    end
+    self.published_at = published_at
+    self.year         = published_at.year
+    self.month        = published_at.month
   end
 end
