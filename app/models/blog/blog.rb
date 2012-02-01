@@ -55,4 +55,8 @@ class Blog::Blog < Wheelhouse::Resource
     selector = MongoModel::MongoOptions.new(posts.klass, posts.finder_options).to_a.first
     posts.collection.distinct(:categories, selector)
   end
+  
+  def additional_children
+    posts
+  end
 end
