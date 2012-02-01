@@ -11,11 +11,15 @@ class Blog::Post < Wheelhouse::Resource
   property :published_at, Time
   property :year, Integer
   property :month, Integer
+  
   property :tags, Wheelhouse::Tags
   property :categories, Wheelhouse::Tags
 
-  property :_tags, Wheelhouse::Tags, :index => true
-  property :_categories, Wheelhouse::Tags, :index => true
+  index :_tags
+  before_save { attributes[:_tags] = tags.map(&:parameterize) }
+  
+  index :_categories
+  before_save { attributes[:_categories] = categories.map(&:parameterize) }
   
   activities :all, :resource_name => :title
   
@@ -25,14 +29,13 @@ class Blog::Post < Wheelhouse::Resource
   
   default_scope order(:published_at.desc)
   
-  scope :tagged_with, lambda { |tag| where(:_tags.all => tag) }
-  scope :in_category, lambda { |category| where(:_categories.all => category) }
+  scope :tagged_with, lambda { |tag| where(:_tags => tag) }
+  scope :in_category, lambda { |category| where(:_categories => category) }
   scope :in_year_and_month, lambda { |year, month| where(:year => year, :month => month) }
   
   scope :properties_for_admin, select(:id, :type, :title, :state, :published_at, :created_by_id, :blog_id)
   
   before_save :set_published_timestamp
-  before_save :parameterize_tags_and_categories
   
   delegate :site, :to => :blog
   after_save :clear_cache!
@@ -74,10 +77,5 @@ private
       self.year  = published_at.year
       self.month = published_at.month
     end
-  end
-  
-  def parameterize_tags_and_categories
-    self._tags = tags.map(&:parameterize)
-    self._categories = categories.map(&:parameterize)
   end
 end
