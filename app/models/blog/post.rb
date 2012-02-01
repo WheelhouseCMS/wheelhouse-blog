@@ -47,9 +47,7 @@ class Blog::Post < Wheelhouse::Resource
   end
   
   def path
-    if published? && blog
-      blog.path(year, month, permalink)
-    end
+    blog.path(published_at.year, published_at.month, permalink)
   end
   
   def author
