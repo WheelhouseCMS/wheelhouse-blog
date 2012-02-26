@@ -10,8 +10,8 @@ module Blog
     isolate_namespace Blog
     
     resources do
-      ::Blog::Blog.select(:id, :label).map do |blog|
-        Resource(::Blog::Post, :sublabel => blog.label, :url => blog.new_post_admin_path)
+      ::Blog::Blog.select(:id, :label).map do |b|
+        Resource(::Blog::Post, :sublabel => b.label, :url => blog.new_blog_post_path(b))
       end
     end
     

@@ -17,10 +17,6 @@ class Blog::Blog < Wheelhouse::Resource
     Blog::BlogHandler
   end
   
-  def new_post_admin_path
-    new_blog_post_path(self)
-  end
-  
   def find_post(year, month, permalink)
     posts.find_by_year_and_month_and_permalink!(year.to_i, month.to_i, permalink)
   end
