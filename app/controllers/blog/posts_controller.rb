@@ -4,4 +4,8 @@ class Blog::PostsController < Wheelhouse::ResourceController
 
   manage_site_breadcrumb
   breadcrumb { [parent.label, blog_path(parent)] }
+
+  def section
+    Blog::Plugin.config.wheelhouse.blog.sections ? @blog.label : super
+  end
 end
