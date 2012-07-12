@@ -2,10 +2,5 @@
 - template.resource = Blog::Blog
 - title @blog.title
 
-%h3= @blog.title
-
-- @blog.posts.each do |post|
-  .post
-    %h4= link_to post.title, post
-    = post.content
-    
+= render :layout => "layout", :locals => { :title => @blog.title } do
+  = render :partial => "post", :collection => @blog.posts

@@ -3,10 +3,4 @@
 - breadcrumb @post.title
 - title @post.title
 
-%h3= @post.title
-%p
-  %strong
-    Posted:
-    = @post.published_at.to_s(:short)
-  
-= @post.content
+= render :partial => "post", :object => @post, :layout => "layout", :locals => { :title => @blog.title }
