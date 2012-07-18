@@ -1,5 +1,5 @@
-- title @blog.title
-- breadcrumb params[:category]
+- title ["Category: #{params[:category].titlecase}", @blog.title].join(' - ')
+- breadcrumb "Category: #{params[:category].titlecase}"
 
-= render :layout => "layout", :locals => { :title => @blog.title, :description => "Posts in category: #{params[:category]}" } do
+= render :layout => "layout", :locals => { :description => "Posts in category: #{params[:category].titlecase}" } do
   = render :partial => "post", :collection => @posts

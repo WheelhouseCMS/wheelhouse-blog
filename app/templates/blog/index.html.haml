@@ -2,5 +2,5 @@
 - template.resource = Blog::Blog
 - title @blog.title
 
-= render :layout => "layout", :locals => { :title => @blog.title } do
+= render :layout => "layout" do
   = render :partial => "post", :collection => @blog.posts

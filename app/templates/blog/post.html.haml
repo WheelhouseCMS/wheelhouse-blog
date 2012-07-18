@@ -1,6 +1,6 @@
 - template.name = "Blog Post"
 - template.resource = Blog::Post
+- title [@post.title, @blog.title].join(' - ')
 - breadcrumb @post.title
-- title @post.title
 
-= render :partial => "post", :object => @post, :layout => "layout", :locals => { :title => @blog.title }
+= render :partial => "post", :object => @post, :layout => "layout"

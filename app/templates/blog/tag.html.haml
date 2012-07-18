@@ -1,5 +1,5 @@
-- title @blog.title
+- title ["Tag: #{params[:tag]}", @blog.title].join(' - ')
 - breadcrumb "Tag: #{params[:tag]}"
 
-= render :layout => "layout", :locals => { :title => @blog.title, :description => "Posts tagged with #{params[:tag]}" } do
+= render :layout => "layout", :locals => { :description => "Posts tagged: #{params[:tag]}" } do
   = render :partial => "post", :collection => @posts
