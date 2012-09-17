@@ -43,13 +43,11 @@ class Blog::Blog < Wheelhouse::Resource
   end
   
   def tags
-    selector = MongoModel::MongoOptions.new(posts.klass, posts.finder_options).to_a.first
-    posts.collection.distinct(:tags, selector)
+    Blog::Tag.for_blog(self).cached
   end
   
   def categories
-    selector = MongoModel::MongoOptions.new(posts.klass, posts.finder_options).to_a.first
-    posts.collection.distinct(:categories, selector)
+    Blog::Category.for_blog(self).cached
   end
   
   def additional_children

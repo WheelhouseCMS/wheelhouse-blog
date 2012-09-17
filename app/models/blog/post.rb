@@ -37,8 +37,12 @@ class Blog::Post < Wheelhouse::Resource
   before_save :cache_author_name
   
   delegate :site, :to => :blog
+  
   after_save :clear_cache!
   after_destroy :clear_cache!
+  
+  after_save :update_taxonomies
+  after_destroy :update_taxonomies
   
   self.parent_resource = :blog
   self.default_template = "post"
@@ -80,5 +84,10 @@ private
   
   def cache_author_name
     write_attribute(:author_name, author.name) if author
+  end
+  
+  def update_taxonomies
+    Blog::Tag.refresh
+    Blog::Category.refresh
   end
 end
