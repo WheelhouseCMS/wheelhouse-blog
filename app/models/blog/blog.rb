@@ -34,13 +34,8 @@ class Blog::Blog < Wheelhouse::Resource
     month ? path(year.to_i, month.to_i) : path(year.to_i)
   end
   
-  def archives
-    selector = MongoModel::MongoOptions.new(posts.klass, posts.finder_options).to_a.first
-    posts.collection.group(:key => [:year, :month], :cond => selector, :initial => { :count => 0 }, :reduce => "function(doc, out) { out.count++ }").map { |hash|
-      year, month, count = hash["year"], hash["month"], hash["count"]
-      
-      [Date.civil(year, month, 1), archive_path(year, month), count.to_i]
-    }.sort { |a, b| b.first <=> a.first }
+  def archives(options={})
+    Blog::Archive.build(self, options)
   end
   
   def tags
