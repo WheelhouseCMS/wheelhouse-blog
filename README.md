@@ -9,6 +9,7 @@ It currently supports:
 - tags
 - categories
 - archives
+- pagination
 - multiple blogs
 
 It does not yet support commenting but this will be implemented in the near future. In the meanwhile, it is fairly easy to integrate comments using a third-party JavaScript library such as [Disqus](http://disqus.com/) or [Facebook Comments](https://developers.facebook.com/docs/reference/plugins/comments/).

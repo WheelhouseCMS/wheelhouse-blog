@@ -3,6 +3,7 @@ class Blog::Blog < Wheelhouse::Resource
   include Wheelhouse::Resource::Content
 
   property :title, String, :translate => true, :required => true
+  property :posts_per_page, Integer, :default => 20
 
   has_many :posts, :class => "Blog::Post", :conditions => { :state => 'Published' }, :order => :published_at.desc
   has_many :all_posts, :class => "Blog::Post", :order => :created_at.desc

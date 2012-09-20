@@ -1,4 +1,5 @@
 require "wheelhouse"
+require "will_paginate"
 
 module Blog
   class Plugin < Wheelhouse::Plugin

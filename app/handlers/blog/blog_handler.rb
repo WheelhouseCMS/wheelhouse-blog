@@ -1,21 +1,21 @@
 class Blog::BlogHandler < Wheelhouse::ResourceHandler
-  get :cache => true do
-    # Nothing extra required
+  get "/(page/:page)", :cache => true do
+    @posts = paginate(@blog.posts)
   end
 
   get "/feed.xml", :cache => true do
     request.format = :xml
-    render :template => "feed.xml", :layout => false
+    render :template => "feed", :formats => [:xml], :layout => false
   end
   
-  get '/tag/:tag', :cache => true do
-    @posts = @blog.posts.tagged_with(params[:tag])
-    render :template => "tag.html"
+  get '/tag/:tag(/page/:page)', :cache => true do
+    @posts = paginate(@blog.posts.tagged_with(params[:tag]))
+    render :template => "tag"
   end
   
-  get '/category/:category', :cache => true do
-    @posts = @blog.posts.in_category(params[:category])
-    render :template => "category.html"
+  get '/category/:category(/page/:page)', :cache => true do
+    @posts = paginate(@blog.posts.in_category(params[:category]))
+    render :template => "category"
   end
   
   get "/:year/:month/:permalink", :cache => true do
@@ -23,12 +23,17 @@ class Blog::BlogHandler < Wheelhouse::ResourceHandler
     render @post
   end
   
-  get "/:year/:month", :cache => true do
+  get "/:year/:month(/page/:page)", :cache => true do
     @year  = params[:year].to_i
     @month = params[:month].to_i
     raise ActionController::RoutingError, "No route matches #{request.path.inspect}" if @year.zero? || @month.zero?
     
-    @posts = @blog.posts.in_year_and_month(@year, @month)
-    render :template => "archive.html"
+    @posts = paginate(@blog.posts.in_year_and_month(@year, @month))
+    render :template => "archive"
+  end
+
+private
+  def paginate(posts)
+    posts.paginate(:page => params[:page].presence || 1, :per_page => @blog.posts_per_page)
   end
 end

@@ -15,6 +15,9 @@
   %dl
     = navigation_options
     = template_options
+    = sidebar_expander :pagination_options do
+      = field :posts_per_page, :class => "fixed posts-per-page" do
+        = form.text_field :posts_per_page
   
   - if @blog.persisted?
     %hr

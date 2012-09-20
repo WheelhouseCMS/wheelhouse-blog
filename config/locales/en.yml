@@ -2,6 +2,10 @@ en:
   resource:
     models:
       blog/post: Blog Post
+    
+    attributes:
+      blog/blog:
+        posts_per_page: Posts per page
         
   helpers:
     label:
@@ -17,3 +21,6 @@ en:
     tabs:
       blog/blog:
         blog_settings: Blog Settings
+
+  sidebar:
+    pagination_options: Pagination Options
