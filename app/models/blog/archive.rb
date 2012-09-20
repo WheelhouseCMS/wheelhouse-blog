@@ -49,13 +49,7 @@ class Blog::Archive
   def self.build(blog, options)
     options[:group] ||= [:year, :month]
     
-    scope = blog.posts.current_scope
-    selector, _ = MongoModel::MongoOptions.new(scope.klass, scope.finder_options).to_a
-    
-    scope.collection.group(:key => options[:group],
-                           :cond => selector,
-                           :initial => { :count => 0 },
-                           :reduce => "function(doc, out) { out.count++; }").map { |hash|
+    group(blog.posts, :key => options[:group]).map { |hash|
       Blog::Archive.from_mongo(blog, hash)
     }.sort
   end
@@ -68,5 +62,14 @@ class Blog::Archive
 private
   def valid_month?
     month > 0 && month < 12
+  end
+  
+  def self.group(base, options={})
+    scope = base.current_scope
+    selector, _ = MongoModel::MongoOptions.new(scope.klass, scope.finder_options).to_a
+    
+    scope.collection.group({ :cond => selector,
+                             :initial => { :count => 0 },
+                             :reduce => "function(doc, out) { out.count++; }" }.merge(options))
   end
 end
