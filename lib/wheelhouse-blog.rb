@@ -8,6 +8,8 @@ module Blog
     # Enable blog sections by default
     config.wheelhouse.blog.sections = true
     
+    config.precompile << "wheelhouse-blog/admin.*"
+    
     isolate_namespace Blog
     
     resources do
@@ -22,10 +24,6 @@ module Blog
       ::Blog::Blog.select(:id, :label).map do |blog|
         Section(blog.label, blog)
       end if ::Blog::Plugin.config.wheelhouse.blog.sections
-    end
-    
-    initializer "precompile assets" do |app|
-      app.config.assets.precompile << "wheelhouse-blog/admin.*"
     end
   end
 end
