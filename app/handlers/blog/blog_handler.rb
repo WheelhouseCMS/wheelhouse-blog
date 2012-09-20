@@ -18,17 +18,17 @@ class Blog::BlogHandler < Wheelhouse::ResourceHandler
     render :template => "category"
   end
   
-  get "/:year/:month/:permalink", :cache => true do
-    @post = @blog.find_post(params[:year], params[:month], params[:permalink])
-    render @post
-  end
-  
   get "/:year(/:month)(/page/:page)", :cache => true do
     @archive = Blog::Archive.new(@blog, params[:year], params[:month].presence)
     raise ActionController::RoutingError, "No route matches #{request.path.inspect}" if @archive.invalid?
     
     @posts = paginate(@archive.posts)
     render :template => "archive"
+  end
+  
+  get "/:year/:month/:permalink", :cache => true do
+    @post = @blog.find_post(params[:year], params[:month], params[:permalink])
+    render @post
   end
 
 private
