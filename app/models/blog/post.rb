@@ -29,7 +29,6 @@ class Blog::Post < Wheelhouse::Resource
   
   scope :tagged_with, lambda { |tag| where(:_tags => tag.parameterize) }
   scope :in_category, lambda { |category| where(:_categories => category.parameterize) }
-  scope :in_year_and_month, lambda { |year, month| where(:year => year, :month => month) }
   
   scope :properties_for_admin, select(:id, :type, :title, :state, :published_at, :created_by_id, :author_name, :blog_id)
   

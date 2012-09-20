@@ -1,5 +1,5 @@
-- title [format_month(@year, @month), @blog.title].join(' - ')
-- breadcrumb format_month(@year, @month)
+- title [@archive.format, @blog.title].join(' - ')
+- breadcrumb @archive.format
 
-= render :layout => "layout", :locals => { :description => "Posts from: #{format_month(@year, @month)}" } do
+= render :layout => "layout", :locals => { :description => "Posts from: #{@archive.format}" } do
   = render :partial => "post", :collection => @posts
