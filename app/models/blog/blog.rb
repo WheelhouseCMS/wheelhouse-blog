@@ -22,6 +22,10 @@ class Blog::Blog < Wheelhouse::Resource
     posts.find_by_year_and_month_and_permalink!(year.to_i, month.to_i, permalink)
   end
   
+  def feed_path
+    path('feed.xml')
+  end
+  
   def tag_path(tag)
     path('tag', tag.parameterize)
   end

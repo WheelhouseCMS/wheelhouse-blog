@@ -4,8 +4,7 @@ class Blog::BlogHandler < Wheelhouse::ResourceHandler
   end
 
   get "/feed.xml", :cache => true do
-    request.format = :xml
-    render :template => "feed", :formats => [:xml], :layout => false
+    render :template => "feed", :formats => [:rss], :layout => false
   end
   
   get '/tag/:tag(/page/:page)', :cache => true do
