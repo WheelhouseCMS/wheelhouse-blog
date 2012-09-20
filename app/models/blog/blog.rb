@@ -30,8 +30,8 @@ class Blog::Blog < Wheelhouse::Resource
     path('category', category.parameterize)
   end
   
-  def archive_path(year, month)
-    path(year.to_i, month.to_i)
+  def archive_path(year, month=nil)
+    month ? path(year.to_i, month.to_i) : path(year.to_i)
   end
   
   def archives
