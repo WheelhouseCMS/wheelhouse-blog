@@ -4,7 +4,7 @@
 .buttons
   = link_to "New Post", new_blog_post_path(@blog), :class => 'add'
 
-- @posts = @blog.all_posts.properties_for_admin.paginate(:page => params[:p])
+- @posts = @blog.posts_for_admin.paginate(:page => params[:p])
 
 = table_for Blog::Post, :id => "blog-posts" do |table|
   - table.rows(@posts) do |row, post|

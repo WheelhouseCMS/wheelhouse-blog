@@ -30,8 +30,6 @@ class Blog::Post < Wheelhouse::Resource
   scope :tagged_with, lambda { |tag| where(:_tags => tag.parameterize) }
   scope :in_category, lambda { |category| where(:_categories => category.parameterize) }
   
-  scope :properties_for_admin, select(:id, :type, :title, :state, :published_at, :created_by_id, :author_name, :blog_id)
-  
   before_save :set_published_timestamp, :if => :published?
   before_save :cache_author_name
   before_save :set_admin_sort_index
