@@ -6,7 +6,7 @@ class Blog::Blog < Wheelhouse::Resource
   property :posts_per_page, Integer, :default => 20
 
   has_many :posts, :class => "Blog::Post", :conditions => { :state => 'Published' }, :order => :published_at.desc
-  has_many :all_posts, :class => "Blog::Post", :order => :created_at.desc
+  has_many :all_posts, :class => "Blog::Post", :order => [:_admin_sort_index.desc, :created_at.desc]
 
   activities :all
   

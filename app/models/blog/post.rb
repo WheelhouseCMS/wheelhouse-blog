@@ -34,6 +34,7 @@ class Blog::Post < Wheelhouse::Resource
   
   before_save :set_published_timestamp, :if => :published?
   before_save :cache_author_name
+  before_save :set_admin_sort_index
   
   delegate :site, :to => :blog
   
@@ -88,5 +89,9 @@ private
   def update_taxonomies
     Blog::Tag.refresh
     Blog::Category.refresh
+  end
+  
+  def set_admin_sort_index
+    attributes[:_admin_sort_index] = published? ? [0, published_at.to_i] : [1, updated_at.to_i]
   end
 end
