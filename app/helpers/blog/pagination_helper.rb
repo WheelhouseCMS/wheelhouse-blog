@@ -1,9 +1,11 @@
 module Blog::PaginationHelper
-  class LinkRenderer < WillPaginate::LinkRenderer
+  WILL_PAGINATE_BASE = defined?(WillPaginate::ViewHelpers) ? WillPaginate::ViewHelpers::LinkRenderer : WillPaginate::LinkRenderer
+  
+  class LinkRenderer < WILL_PAGINATE_BASE
     PAGE_PARAMETER = /\/page\/\d+$/
     
   protected
-    def url_for(page)
+    def url(page)
       path = @template.request.path
       
       if page == 1
@@ -14,6 +16,7 @@ module Blog::PaginationHelper
         path + "/page/#{page}"
       end
     end
+    alias url_for url
   end
   
   DEFAULTS = {

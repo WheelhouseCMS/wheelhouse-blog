@@ -17,5 +17,5 @@ Gem::Specification.new do |s|
   
   s.add_dependency("wheelhouse", ">= 1.0.1")
   s.add_dependency("mongomodel", ">= 0.4.6")
-  s.add_dependency("will_paginate", "~> 2.3.15")
+  s.add_dependency("will_paginate")
 end
