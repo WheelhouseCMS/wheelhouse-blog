@@ -1,6 +1,8 @@
 Blog Plugin for Wheelhouse CMS
 ==============================
 
+![Screenshot of blog plugin](https://www.wheelhousecms.com/media/308e77b2/Blog-Plugin.png)
+
 This gem makes it easy to integrate a blog or news feed into your Wheelhouse CMS site.
 
 It currently supports:
@@ -26,4 +28,4 @@ Then run `bundle install`.
 
 **2. Create a new blog from the New Page dropdown.**
 
-**3. Copy the templates from `app/templates/blog` to your theme templates folder to customize.**
+**3. To customize, copy the partials (`_post.html.haml` and `_layout.html.haml`) from `app/templates/blog` to your theme templates folder.**
