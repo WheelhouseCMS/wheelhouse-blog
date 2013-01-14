@@ -17,7 +17,7 @@ class Blog::Archive
   end
   
   def path
-    @blog.path(year, month)
+    @blog.archive_path(year, month)
   end
   
   def posts
@@ -33,11 +33,11 @@ class Blog::Archive
   end
   
   def to_date
-    Date.new(year, month, 1)
+    Date.new(year, month || 1, 1)
   end
   
   def <=>(other)
-    other.to_date <=> to_date
+    to_date <=> other.to_date
   end
   
   def self.from_mongo(blog, hash)
@@ -51,7 +51,7 @@ class Blog::Archive
     
     group(blog.posts, :key => options[:group]).map { |hash|
       Blog::Archive.from_mongo(blog, hash)
-    }.sort
+    }.sort.reverse
   end
   
   # Backwards-compatiblity with old-style archives
@@ -61,7 +61,7 @@ class Blog::Archive
 
 private
   def valid_month?
-    month > 0 && month < 12
+    (1..12).cover?(month)
   end
   
   def self.group(base, options={})
