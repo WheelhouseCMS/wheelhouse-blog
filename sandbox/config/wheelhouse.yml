@@ -1,0 +1,8 @@
+---
+mongodb:
+  development:
+    database: wheelhouse-blog-sandbox
+  production:
+    database: wheelhouse-blog-sandbox
+  test:
+    database: wheelhouse-blog-sandbox-test
