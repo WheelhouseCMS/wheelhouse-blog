@@ -27,6 +27,7 @@ class Blog::Post < Wheelhouse::Resource
   
   validates_uniqueness_of :permalink, :scope => :blog_id
   
+  scope :published, where(:state => 'Published').order(:published_at.desc)
   scope :tagged_with, lambda { |tag| where(:_tags => tag.parameterize) }
   scope :in_category, lambda { |category| where(:_categories => category.parameterize) }
   

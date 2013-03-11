@@ -26,4 +26,9 @@ module Blog
       end if ::Blog::Plugin.config.wheelhouse.blog.sections
     end
   end
+  
+  def self.all_posts_for(site)
+    blog_ids = ::Blog::Blog.where(:site_id => site.id).select(:id).map(&:id)
+    ::Blog::Post.where(:blog_id.in => blog_ids).published
+  end
 end
