@@ -10,6 +10,8 @@ class Blog::Blog < Wheelhouse::Resource
   has_many :posts_for_admin, :class => "Blog::Post", :order => [:_admin_sort_index.desc, :created_at.desc],
                              :select => [:id, :type, :title, :state, :published_at, :created_by_id, :author_name, :blog_id]
 
+  scope :sections_for_site, lambda { |site| where(:site_id => site.id).order(:created_at.asc).select(:id, :label) }
+
   activities :all
   
   icon "wheelhouse-blog/blog.png"

@@ -13,7 +13,7 @@ module Blog
     isolate_namespace Blog
     
     resources do
-      ::Blog::Blog.select(:id, :label).map do |b|
+      ::Blog::Blog.sections_for_site(site).map do |b|
         Resource(::Blog::Post, :sublabel => b.label, :url => blog.new_blog_post_path(b))
       end
     end
@@ -21,7 +21,7 @@ module Blog
     resource { Resource(::Blog::Blog) }
     
     sections do
-      ::Blog::Blog.select(:id, :label).map do |blog|
+      ::Blog::Blog.sections_for_site(site).map do |blog|
         Section(blog.label, blog)
       end if ::Blog::Plugin.config.wheelhouse.blog.sections
     end
