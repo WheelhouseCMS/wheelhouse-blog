@@ -9,13 +9,16 @@ module Blog::PaginationHelper
       path = @template.request.path
       
       if page == 1
-        path.sub(PAGE_PARAMETER, "")
+        path = path.sub(PAGE_PARAMETER, "")
       elsif path =~ PAGE_PARAMETER
-        path.sub(PAGE_PARAMETER, "/page/#{page}")
+        path = path.sub(PAGE_PARAMETER, "/page/#{page}")
       else
-        path + "/page/#{page}"
+        path += "/page/#{page}"
       end
+      
+      Wheelhouse::PathUtils.normalize_path(path)
     end
+    
     alias url_for url
   end
   

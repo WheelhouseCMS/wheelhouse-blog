@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.files        = Dir["{app,config,lib}/**/*", "README.md", "LICENSE"]
   s.require_path = "lib"
   
-  s.add_dependency("wheelhouse", ">= 1.0.1")
+  s.add_dependency("wheelhouse", ">= 1.0.14")
   s.add_dependency("mongomodel", ">= 0.4.6")
   s.add_dependency("will_paginate")
 end
