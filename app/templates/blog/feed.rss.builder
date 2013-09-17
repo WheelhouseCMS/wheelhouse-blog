@@ -26,7 +26,7 @@ xml.rss :version => '2.0', 'xmlns:atom' => 'http://www.w3.org/2005/Atom' do
         xml.link url(post)
         xml.guid url(post)
         
-        # xml.comments url(post.comments_path) if blog.comments_enabled?
+        xml.comments url(post.comments_path) if blog.comments_enabled?
       end
     end
   end

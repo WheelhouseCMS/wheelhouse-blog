@@ -31,6 +31,14 @@ class Blog::BlogHandler < Wheelhouse::ResourceHandler
     @post = @blog.find_post(params[:year], params[:month], params[:permalink])
     render @post
   end
+  
+  post "/:year/:month/:permalink", :year => /\d{4}/, :month => /\d\d?/ do
+    @post = @blog.find_post(params[:year], params[:month], params[:permalink])
+    @comment = Blog::Comment.new(params[:comment])
+    @post.submit_comment(@comment)
+    
+    render @post
+  end
 
 private
   def paginate(posts)

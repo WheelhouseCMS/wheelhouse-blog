@@ -3,11 +3,8 @@
 
 - form! [@blog, @post], :as => :post, :url => @post.admin_path
 
-- tab :post do
-  = field :title do
-    = form.text_field :title, :title => true
-    
-  = content
+- tab :content  => "content"
+- tab :comments => "comments" if @blog.comments_enabled?
   
 - sidebar(:options) do
   = sidebar_expander "Publishing Options" do

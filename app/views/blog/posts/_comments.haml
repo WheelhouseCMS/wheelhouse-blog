@@ -1,0 +1,16 @@
+= table_for(Blog::Comment, :id => "post-comments") do |table|
+  - table.rows(@post.all_comments) do |row, comment|
+    = row.column(:comment) do
+      = simple_format(comment.comment)
+      
+      %p.posted-by
+        Posted by #{mail_to(comment.email, comment.email_with_author_name)}
+      
+    = row.column(:posted_at, :class => "posted-at") { comment.posted_at.to_s(:short) }
+    
+    = row.controls do |c|
+      = link_to icon(:delete), [@blog, @post, comment], :class => "delete", "data-loading" => flash_message(comment, 'deleting'), "data-confirm" => flash_message(comment, 'confirm.delete'), :title => "Click to delete comment."
+  
+  - table.empty do
+    No comments have been posted.
+    

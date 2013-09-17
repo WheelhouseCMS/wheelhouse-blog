@@ -6,6 +6,11 @@ en:
     attributes:
       blog/blog:
         posts_per_page: Posts per page
+    
+    errors:
+      models:
+        blog/comment:
+          blank: This field is required.
         
   helpers:
     label:
@@ -24,3 +29,5 @@ en:
 
   sidebar:
     pagination_options: Pagination Options
+    comment_options: Comment Options
+    

@@ -14,6 +14,8 @@ class Blog::Post < Wheelhouse::Resource
   
   property :tags, Wheelhouse::Tags
   property :categories, Wheelhouse::Tags
+  
+  property :comments, Collection[Blog::Comment]
 
   index :_tags
   before_save { attributes[:_tags] = tags.map(&:parameterize) }
@@ -50,8 +52,39 @@ class Blog::Post < Wheelhouse::Resource
     state == 'Published'
   end
   
-  def path
-    blog.path(published_at.year, published_at.month, permalink)
+  def path(*args)
+    blog.path(published_at.year, published_at.month, permalink, *args)
+  end
+  
+  def comments_path
+    "#{path}#comments"
+  end
+  
+  def comments
+    all_comments
+  end
+  
+  def all_comments
+    read_attribute(:comments)
+  end
+  
+  def submit_comment(comment)
+    if comment.valid?
+      push!(:comments => comment.prepare.to_mongo)
+      comments << comment
+      clear_cache!
+    end
+  end
+  
+  def find_comment(id)
+    all_comments.find { |c| c.id == id }
+  end
+  
+  def delete_comment(comment)
+    pull!(:comments => { "_id" => comment.id.to_mongo })
+    all_comments.delete(comment)
+    clear_cache!
+  end
   end
   
   def author_name

@@ -4,11 +4,13 @@ class Blog::Blog < Wheelhouse::Resource
 
   property :title, String, :translate => true, :required => true
   property :posts_per_page, Integer, :default => 20
+  
+  property :comments_enabled, Boolean, :default => false
 
   has_many :posts, :class => "Blog::Post", :conditions => { :state => 'Published' }, :order => :published_at.desc
   has_many :all_posts, :class => "Blog::Post"
   has_many :posts_for_admin, :class => "Blog::Post", :order => [:_admin_sort_index.desc, :created_at.desc],
-                             :select => [:id, :type, :title, :state, :published_at, :created_by_id, :author_name, :blog_id]
+                             :select => [:id, :type, :title, :state, :published_at, :created_by_id, :author_name, :blog_id, :comments]
 
   scope :sections_for_site, lambda { |site| where(:site_id => site.id).order(:created_at.asc).select(:id, :label) }
 

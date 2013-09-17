@@ -9,6 +9,10 @@
     
     = row.column(:title, :link => true)
     = row.column(:author) { post.author_name || 'None' }
+    
+    - if @blog.comments_enabled?
+      = row.column(:comments, :class => "comments") { post.comments.size }
+    
     = row.column(:published_at) { post.published? ? post.published_at.to_s(:short) : 'Draft' }
     = row.controls do |c|
       = c.delete
