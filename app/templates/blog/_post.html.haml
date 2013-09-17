@@ -1,5 +1,5 @@
 %article.post
-  %h3= link_to_unless_current post.title, post
+  %h3= link_to_unless current_post?(post), post.title, post
   
   %p
     %em
