@@ -1,6 +1,8 @@
 require "wheelhouse"
 require "will_paginate"
 
+require "blog/wheelhouse_route_constraints"
+
 module Blog
   class Plugin < Wheelhouse::Plugin
     config.wheelhouse.blog = ActiveSupport::OrderedOptions.new
