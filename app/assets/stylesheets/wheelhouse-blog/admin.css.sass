@@ -28,4 +28,24 @@ p.posted-by
 
 .posted-at
   min-width: 10em
+
+.post-status
+  font-size: 80%
+  text-transform: uppercase
+  padding: 4px 8px
+  +border-radius(8px)
   
+  &.approved
+    background: #d9efd5
+    color: #267f23
+  
+    &:hover
+      background: darken(#d9efd5, 3%)
+  
+  &.pending
+    background: #caddef
+    color: #3c617f
+    
+    &:hover
+      background: lighten(#caddef, 3%)
+      

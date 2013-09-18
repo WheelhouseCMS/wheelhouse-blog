@@ -6,6 +6,7 @@ class Blog::Blog < Wheelhouse::Resource
   property :posts_per_page, Integer, :default => 20
   
   property :comments_enabled, Boolean, :default => false
+  property :moderation_required, Boolean, :default => false
 
   has_many :posts, :class => "Blog::Post", :conditions => { :state => 'Published' }, :order => :published_at.desc
   has_many :all_posts, :class => "Blog::Post"

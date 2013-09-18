@@ -3,7 +3,11 @@ Blog::Plugin.routes.draw do
   
   resources :blogs do
     resources :posts do
-      resources :comments
+      resources :comments do
+        member do
+          post :moderate
+        end
+      end
     end
   end
 end

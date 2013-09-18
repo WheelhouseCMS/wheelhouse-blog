@@ -8,9 +8,17 @@
       
     = row.column(:posted_at, :class => "posted-at") { comment.posted_at.to_s(:short) }
     
+    - if @post.moderation_required?
+      = row.column(:status, :header => nil) do
+        = link_to comment.approved? ? "Approved" : "Pending", moderate_blog_post_comment_path(@blog, @post, comment), :class => ["post-status", comment.approved? ? "approved" : "pending"], :title => "Click to moderate this comment."
+    
     = row.controls do |c|
-      = link_to icon(:delete), [@blog, @post, comment], :class => "delete", "data-loading" => flash_message(comment, 'deleting'), "data-confirm" => flash_message(comment, 'confirm.delete'), :title => "Click to delete comment."
+      = link_to icon(:delete), blog_post_comment_path(@blog, @post, comment), :class => "delete", "data-loading" => flash_message(comment, 'deleting'), "data-confirm" => flash_message(comment, 'confirm.delete'), :title => "Click to delete this comment."
   
   - table.empty do
     No comments have been posted.
+
+- if @post.moderation_required?
+  - content_for(:javascript) do
+    = javascript_include_tag "wheelhouse-blog/admin"
     

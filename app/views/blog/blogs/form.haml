@@ -19,9 +19,10 @@
     = sidebar_expander :pagination_options do
       = field :posts_per_page, :class => "fixed posts-per-page" do
         = form.text_field :posts_per_page
-   
+        
     = sidebar_expander :comment_options do
       = form.checkbox :comments_enabled, :label => "Comments are enabled"
+      = form.checkbox :moderation_required, :label => "Comments require moderation"
   
   - if @blog.persisted?
     %hr

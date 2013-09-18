@@ -37,7 +37,7 @@ class Blog::Post < Wheelhouse::Resource
   before_save :cache_author_name
   before_save :set_admin_sort_index
   
-  delegate :site, :to => :blog
+  delegate :site, :comments_enabled?, :moderation_required?, :to => :blog
   
   after_save :clear_cache!
   after_destroy :clear_cache!
@@ -62,7 +62,7 @@ class Blog::Post < Wheelhouse::Resource
   end
   
   def comments
-    all_comments
+    all_comments.approved
   end
   
   def all_comments

@@ -11,6 +11,10 @@ en:
       models:
         blog/comment:
           blank: This field is required.
+          
+          attributes:
+            email:
+              invalid: A valid email is required.
         
   helpers:
     label:
