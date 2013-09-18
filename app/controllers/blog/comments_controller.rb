@@ -5,11 +5,7 @@ class Blog::CommentsController < Wheelhouse::ResourceController
   actions :destroy
   
 protected
-  def resource
-    @comment ||= parent.find_comment(params[:id])
-  end
-
   def destroy_resource(comment)
-    parent.delete_comment(comment)
+    parent.comments.destroy(comment)
   end
 end

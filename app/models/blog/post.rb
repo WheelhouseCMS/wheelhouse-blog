@@ -15,7 +15,7 @@ class Blog::Post < Wheelhouse::Resource
   property :tags, Wheelhouse::Tags
   property :categories, Wheelhouse::Tags
   
-  property :comments, Collection[Blog::Comment]
+  property :comments, CommentCollection
 
   index :_tags
   before_save { attributes[:_tags] = tags.map(&:parameterize) }
@@ -41,6 +41,7 @@ class Blog::Post < Wheelhouse::Resource
   
   after_save :clear_cache!
   after_destroy :clear_cache!
+  public :clear_cache!
   
   after_save :update_taxonomies
   after_destroy :update_taxonomies
@@ -66,25 +67,6 @@ class Blog::Post < Wheelhouse::Resource
   
   def all_comments
     read_attribute(:comments)
-  end
-  
-  def submit_comment(comment)
-    if comment.valid?
-      push!(:comments => comment.prepare.to_mongo)
-      comments << comment
-      clear_cache!
-    end
-  end
-  
-  def find_comment(id)
-    all_comments.find { |c| c.id == id }
-  end
-  
-  def delete_comment(comment)
-    pull!(:comments => { "_id" => comment.id.to_mongo })
-    all_comments.delete(comment)
-    clear_cache!
-  end
   end
   
   def author_name

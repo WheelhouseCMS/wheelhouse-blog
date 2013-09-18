@@ -4,14 +4,9 @@ class Blog::Comment < Wheelhouse::EmbeddedResource
   property :author, String, :required => true
   property :email, String, :required => true
   property :comment, String, :required => true
-  property :posted_at, Time
+  property :posted_at, Time, :required => true
   
   def email_with_author_name
     "#{author} <#{email}>"
-  end
-  
-  def prepare
-    self.posted_at = Time.now
-    self
   end
 end

@@ -35,7 +35,7 @@ class Blog::BlogHandler < Wheelhouse::ResourceHandler
   post "/:year/:month/:permalink", :year => /\d{4}/, :month => /\d\d?/ do
     @post = @blog.find_post(params[:year], params[:month], params[:permalink])
     @comment = Blog::Comment.new(params[:comment])
-    @post.submit_comment(@comment)
+    @post.comments.submit(@comment)
     
     render @post
   end
