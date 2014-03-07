@@ -19,7 +19,7 @@
   
   = sidebar_expander "Tags & Categories" do
     = field :categories do
-      = form.checkboxes :categories, @blog.categories, :editable => true, :placeholder => "Add a category..."
+      = form.checkboxes :categories, @blog.categories.map(&:name), :editable => true, :placeholder => "Add a category..."
 
     = field :tags do
-      = form.tags :tags, @blog.tags, :placeholder => "Add a tag..."
+      = form.tags :tags, @blog.tags.map(&:name), :placeholder => "Add a tag..."
