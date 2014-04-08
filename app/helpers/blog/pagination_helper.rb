@@ -4,6 +4,13 @@ module Blog::PaginationHelper
   class LinkRenderer < WILL_PAGINATE_BASE
     PAGE_PARAMETER = /\/page\/\d+$/
     
+    def pagination
+      items = @options[:page_links] ? windowed_page_numbers : []
+      items.unshift :previous_page unless @options[:previous_link] == false
+      items.push :next_page unless @options[:next_link] == false
+      items
+    end
+    
   protected
     def url(page)
       path = @template.request.path
