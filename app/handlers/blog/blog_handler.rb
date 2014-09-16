@@ -34,7 +34,7 @@ class Blog::BlogHandler < Wheelhouse::ResourceHandler
   
   post "/:year/:month/:permalink", :year => /\d{4}/, :month => /\d\d?/ do
     @post = @blog.find_post(params[:year], params[:month], params[:permalink])
-    @comment = Blog::Comment.new(params[:comment])
+    @comment = Blog::Comment.new(comment_params)
     @post.comments.submit(@comment)
     
     render @post
@@ -43,5 +43,13 @@ class Blog::BlogHandler < Wheelhouse::ResourceHandler
 private
   def paginate(posts)
     posts.paginate(:page => params[:page].presence || 1, :per_page => @blog.posts_per_page)
+  end
+  
+  def comment_params
+    if params.respond_to?(:require)
+      params.require(:comment).permit(:author, :email, :comment)
+    else
+      params[:comment]
+    end
   end
 end
