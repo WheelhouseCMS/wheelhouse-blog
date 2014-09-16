@@ -17,7 +17,7 @@
         - if post.all_comments.unmoderated.size > 0
           (#{post.all_comments.unmoderated.size})
     
-    = row.column(:published_at, :class => "published-at") do
+    = row.column(:published_at, :class => "blog-timestamp") do
       - if post.published?
         =l post.published_at, :format => :blog_date
         %small=l post.published_at, :format => :blog_time

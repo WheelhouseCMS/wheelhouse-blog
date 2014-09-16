@@ -6,7 +6,9 @@
       %p.posted-by
         Posted by #{mail_to(comment.email, comment.email_with_author_name)}
       
-    = row.column(:posted_at, :class => "posted-at") { comment.posted_at.to_s(:short) }
+    = row.column(:posted_at, :class => "blog-timestamp") do
+      =l comment.posted_at, :format => :blog_date
+      %small=l comment.posted_at, :format => :blog_time
     
     - if @post.moderation_required?
       = row.column(:status, :header => nil) do
