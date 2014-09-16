@@ -17,7 +17,13 @@
         - if post.all_comments.unmoderated.size > 0
           (#{post.all_comments.unmoderated.size})
     
-    = row.column(:published_at) { post.published? ? post.published_at.to_s(:short) : 'Draft' }
+    = row.column(:published_at, :class => "published-at") do
+      - if post.published?
+        =l post.published_at, :format => :blog_date
+        %small=l post.published_at, :format => :blog_time
+      - else
+        %span.draft Draft
+  
     = row.controls do |c|
       = c.delete
   
