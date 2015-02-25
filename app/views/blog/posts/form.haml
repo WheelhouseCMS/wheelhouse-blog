@@ -13,6 +13,9 @@
     
     = field :permalink do
       = form.permalink :permalink
+
+    = field :hidden, :label => false do
+      = form.check_box :hidden, :label => "Hide this post from blog listings"
   
   = sidebar_expander "Tags & Categories" do
     = field :categories do

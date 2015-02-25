@@ -8,6 +8,7 @@ class Blog::Post < Wheelhouse::Resource
   property :title, String, :translate => true, :required => true
   property :permalink, String, :required => true
   property :state, String, :default => 'Published'
+  property :hidden, Boolean, default: false
   property :published_at, Time
   property :year, Integer
   property :month, Integer
@@ -32,6 +33,7 @@ class Blog::Post < Wheelhouse::Resource
   scope :published, where(:state => 'Published').order(:published_at.desc)
   scope :tagged_with, lambda { |tag| where(:_tags => tag.parameterize) }
   scope :in_category, lambda { |category| where(:_categories => category.parameterize) }
+  scope :visible, where(:hidden.ne => true)
   
   before_save :set_published_timestamp, :if => :published?
   before_save :cache_author_name

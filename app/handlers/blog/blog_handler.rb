@@ -2,7 +2,7 @@ class Blog::BlogHandler < Wheelhouse::ResourceHandler
   extend Blog::WheelhouseRouteConstraints
   
   get "/(page/:page)", :cache => true, :page => /\d+/ do
-    @posts = paginate(@blog.posts)
+    @posts = paginate(@blog.posts.visible)
   end
 
   get "/feed.xml", :cache => true do
@@ -10,12 +10,12 @@ class Blog::BlogHandler < Wheelhouse::ResourceHandler
   end
   
   get '/tag/:tag(/page/:page)', :cache => true, :page => /\d+/ do
-    @posts = paginate(@blog.posts.tagged_with(params[:tag]))
+    @posts = paginate(@blog.posts.visible.tagged_with(params[:tag]))
     render :template => "tag"
   end
   
   get '/category/:category(/page/:page)', :cache => true, :page => /\d+/ do
-    @posts = paginate(@blog.posts.in_category(params[:category]))
+    @posts = paginate(@blog.posts.visible.in_category(params[:category]))
     render :template => "category"
   end
   
@@ -23,7 +23,7 @@ class Blog::BlogHandler < Wheelhouse::ResourceHandler
     @archive = Blog::Archive.new(@blog, params[:year], params[:month].presence)
     raise ActionController::RoutingError, "No route matches #{request.path.inspect}" if @archive.invalid?
     
-    @posts = paginate(@archive.posts)
+    @posts = paginate(@archive.posts.visible)
     render :template => "archive"
   end
   
