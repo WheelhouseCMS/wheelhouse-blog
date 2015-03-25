@@ -13,7 +13,7 @@ module Blog::PaginationHelper
     
   protected
     def url(page)
-      path = @template.request.path
+      path = current_path
       
       if page == 1
         path = path.sub(PAGE_PARAMETER, "")
@@ -25,8 +25,17 @@ module Blog::PaginationHelper
       
       Wheelhouse::PathUtils.normalize_path(path)
     end
-    
     alias url_for url
+
+    def current_path
+      request = @template.request
+
+      if request.respond_to?(:original_fullpath)
+        request.original_fullpath.sub(/\?#{request.query_string}$/, "")
+      else
+        request.path
+      end
+    end
   end
   
   DEFAULTS = {
