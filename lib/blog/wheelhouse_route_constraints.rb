@@ -5,6 +5,8 @@ module Blog
     def define_action(path, action_name, method, options={}, &block)
       define_method(action_name, &block)
       _mapper.match(path, { :via => method, :to => action(action_name) }.merge(options))
+      
+      caches_page(action_name) if options[:cache]
     end
   end
 end
