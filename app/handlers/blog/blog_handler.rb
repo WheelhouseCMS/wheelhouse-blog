@@ -1,7 +1,11 @@
 class Blog::BlogHandler < Wheelhouse::ResourceHandler
   extend Blog::WheelhouseRouteConstraints
+
+  get :cache => true do
+    @posts = paginate(@blog.posts)
+  end
   
-  get "/(page/:page)", :cache => true, :page => /\d+/ do
+  get "/page/:page", :cache => true, :page => /\d+/ do
     @posts = paginate(@blog.posts)
   end
 
