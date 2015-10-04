@@ -2,4 +2,4 @@
 - breadcrumb "Category: #{params[:category].titlecase}"
 
 = render :layout => "layout", :locals => { :description => "Posts in category: #{params[:category].titlecase}" } do
-  = render :partial => "post", :collection => @posts
+  = render "list"

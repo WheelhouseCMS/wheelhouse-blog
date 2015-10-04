@@ -2,4 +2,4 @@
 - breadcrumb @archive.format
 
 = render :layout => "layout", :locals => { :description => "Posts from: #{@archive.format}" } do
-  = render :partial => "post", :collection => @posts
+  = render "list"

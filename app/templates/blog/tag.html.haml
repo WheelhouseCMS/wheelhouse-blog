@@ -2,4 +2,4 @@
 - breadcrumb "Tag: #{params[:tag]}"
 
 = render :layout => "layout", :locals => { :description => "Posts tagged: #{params[:tag]}" } do
-  = render :partial => "post", :collection => @posts
+  = render "list"
