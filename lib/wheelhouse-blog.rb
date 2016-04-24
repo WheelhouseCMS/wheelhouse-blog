@@ -10,7 +10,7 @@ module Blog
     # Enable blog sections by default
     config.wheelhouse.blog.sections = true
     
-    config.precompile << "wheelhouse-blog/admin.*"
+    config.precompile << "wheelhouse-blog/admin.*" << "wheelhouse-blog/*.png"
     
     isolate_namespace Blog
     
